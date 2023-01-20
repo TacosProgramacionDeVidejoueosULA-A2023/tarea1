@@ -10,11 +10,12 @@
 */
 
 #include <allegro5/allegro_primitives.h>
+#include <stdio.h>
 
 #include "settings.h"
 #include "paddle.h"
 
-void init_paddle(struct Paddle* paddle, float x, float y, float w, float h)
+void init_paddle(struct Paddle *paddle, float x, float y, float w, float h)
 {
     paddle->x = x;
     paddle->y = y;
@@ -23,7 +24,7 @@ void init_paddle(struct Paddle* paddle, float x, float y, float w, float h)
     paddle->vy = 0;
 }
 
-void build_paddle_hitbox(struct Paddle paddle, struct Hitbox* hitbox)
+void build_paddle_hitbox(struct Paddle paddle, struct Hitbox *hitbox)
 {
     hitbox->x1 = paddle.x;
     hitbox->y1 = paddle.y;
@@ -31,7 +32,7 @@ void build_paddle_hitbox(struct Paddle paddle, struct Hitbox* hitbox)
     hitbox->y2 = paddle.y + paddle.height;
 }
 
-void update_paddle(struct Paddle* paddle, float dt)
+void update_paddle(struct Paddle *paddle, float dt)
 {
     paddle->y += paddle->vy * dt;
 
@@ -42,6 +43,23 @@ void render_paddle(struct Paddle paddle)
 {
     al_draw_filled_rectangle(
         paddle.x, paddle.y, paddle.x + paddle.width, paddle.y + paddle.height,
-        al_map_rgb(255, 255, 255)
-    );
+        al_map_rgb(255, 255, 255));
+}
+
+void ai_controller_paddle(struct Paddle *paddle, struct Ball ball, float dt)
+{
+    if (abs((int)(ball.y - paddle->y)) == PADDLE_HEIGHT / 2)
+    {
+        paddle->vy = 0;
+        return;
+    }
+    else if (ball.y < paddle->y)
+    {
+        paddle->vy = -PADDLE_SPEED;
+    }
+    else if (ball.y > paddle->y)
+    {
+        paddle->vy = PADDLE_SPEED;
+    }
+    fprintf(stderr, "Padle: %.2f|\t|Ball: %.2f|\t|%.2f\n", paddle->y, ball.y, dt);
 }

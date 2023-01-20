@@ -46,9 +46,9 @@ void render_paddle(struct Paddle paddle)
         al_map_rgb(255, 255, 255));
 }
 
-void ai_controller_paddle(struct Paddle *paddle, struct Ball ball, float dt)
+void ai_controller_paddle(struct Paddle *paddle, struct Ball ball)
 {
-    if (abs((int)(ball.y - paddle->y)) == PADDLE_HEIGHT / 2)
+    if (ball.y >= paddle->y && ball.y < paddle->y + PADDLE_HEIGHT)
     {
         paddle->vy = 0;
         return;
@@ -61,5 +61,4 @@ void ai_controller_paddle(struct Paddle *paddle, struct Ball ball, float dt)
     {
         paddle->vy = PADDLE_SPEED;
     }
-    fprintf(stderr, "Padle: %.2f|\t|Ball: %.2f|\t|%.2f\n", paddle->y, ball.y, dt);
 }

@@ -98,7 +98,7 @@ void update_pong(struct Pong *pong, double dt)
 {
     if (pong->state == PLAY)
     {
-        ai_controller_paddle(&pong->player2, pong->ball, dt);
+        ai_controller_paddle(&pong->player2, pong->ball);
         update_paddle(&pong->player1, dt);
         update_paddle(&pong->player2, dt);
         update_ball(&pong->ball, dt);

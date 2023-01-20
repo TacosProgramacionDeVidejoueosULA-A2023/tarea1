@@ -31,4 +31,4 @@ void update_paddle(struct Paddle* paddle, float dt);
 
 void render_paddle(struct Paddle paddle);
 
-void ai_controller_paddle(struct Paddle* paddle, struct Ball ball, float df);
+void ai_controller_paddle(struct Paddle* paddle, struct Ball ball);

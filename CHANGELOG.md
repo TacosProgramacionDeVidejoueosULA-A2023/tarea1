@@ -1,1 +1,1 @@
-La lógica de la IA se encuentra en los archivos `paddle.c`, `paddle.h` y `pong.c`
+Go to `paddle.c`, `paddle.h` y `pong.c` if you need to see the automatic paddle implementation
